@@ -138,7 +138,7 @@ Password:
 0xa76b3da6911e1a3deb219a76161f43acc286ca8ef75879658c8f8d4b59a5df7d
 ```
 
-Wait at least one block to be committed (~5-7 seconds) and query target account balance:
+Wait for transaction to be committed (~10-20 seconds) and query target account balance:
 ```
 CKB> wallet get-capacity --address 'ckt1qyqglncup9ezk37nz9qmqylwyp7s3v50eruqg2tq2s'
 total: 10000.0 (CKB)
