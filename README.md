@@ -24,7 +24,7 @@ Miner will generate new block every 5 seconds.
 
 Endpoints:
 * REST: `http://127.0.0.1:28114`
-* WebSocket: `ws://127.0.0.1:28114`
+* WebSocket: `ws://127.0.0.1:38114`
 * TCP: `127.0.0.1:48114`
 
 ### Sample REST API call
