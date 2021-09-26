@@ -1,0 +1,45 @@
+version: "3.5"
+
+services:
+  node:
+    hostname: node
+    image: ckb:local
+    build:
+      context: .
+    command: [ "ckb-node.sh" ]
+    ports:
+      - "28114:28114"
+      - "38114:38114"
+      - "48114:48114"
+    volumes:
+      - ./blockchain/config:/config:ro
+      - chain:/data
+    environment:
+      CKB_CONFIG_PATH: /config
+
+  miner:
+    hostname: miner
+    image: ckb:local
+    command: [ "ckb-miner.sh" ]
+    volumes:
+      - ./blockchain/config:/config:ro
+    depends_on:
+      - node
+    environment:
+      CKB_CONFIG_PATH: /config
+      CKB_STARTUP_DELAY: 5
+      API_URL: "http://node:28114/"
+
+  cli:
+    hostname: cli
+    image: ckb:local
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ./blockchain/keys:/home/ckb/keys:ro
+    depends_on:
+      - node
+    environment:
+      API_URL: "http://node:28114/"
+
+volumes:
+  chain:
