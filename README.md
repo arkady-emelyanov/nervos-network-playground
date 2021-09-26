@@ -76,8 +76,7 @@ Subscription confirmation:
 
 Open shell to cli service and run ckb-cli interactive shell
 ```
-$ docker compose exec -- cli bash
-ckb@cli:~$ ckb-cli
+$ docker compose exec -- cli ckb-cli
 
   _   _   ______   _____   __      __   ____     _____
  | \ | | |  ____| |  __ \  \ \    / /  / __ \   / ____|
