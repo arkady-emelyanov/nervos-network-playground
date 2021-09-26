@@ -6,5 +6,5 @@ then
   exit 1
 fi
 
-sleep ${CKB_STARTUP_DELAY:-5}
-ckb miner -C ${CKB_CONFIG_PATH}
+sleep ${CKB_STARTUP_DELAY:-0}
+exec ckb run -C ${CKB_CONFIG_PATH}

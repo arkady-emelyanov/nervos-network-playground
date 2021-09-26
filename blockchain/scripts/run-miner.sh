@@ -6,5 +6,8 @@ then
   exit 1
 fi
 
-sleep ${CKB_STARTUP_DELAY:-0}
-ckb run -C ${CKB_CONFIG_PATH}
+SLEEP_TIME=${CKB_STARTUP_DELAY:-5}
+
+echo "Sleeping for ${SLEEP_TIME} seconds..."
+sleep ${SLEEP_TIME}
+exec ckb miner -C ${CKB_CONFIG_PATH}

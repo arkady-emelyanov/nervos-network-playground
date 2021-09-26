@@ -13,7 +13,7 @@ log_to_stdout = true
 dsn = ""
 
 [miner.client]
-rpc_url = "http://node:28114/"
+rpc_url = "http://node:8114/"
 block_on_submit = true
 poll_interval = 1000
 

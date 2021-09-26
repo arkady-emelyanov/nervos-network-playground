@@ -23,16 +23,17 @@ Miner will generate new block every 5 seconds.
 ## JSON-RPC API
 
 Endpoints:
-* REST: `http://127.0.0.1:28114`
-* WebSocket: `ws://127.0.0.1:38114`
-* TCP: `127.0.0.1:48114`
+* JSON-RPC REST: `http://127.0.0.1:8080/rpc`
+* JSON-RPC WebSocket: `ws://127.0.0.1:8080/ws`
+* JSON-RPC TCP: `127.0.0.1:8116`
+* Indexer REST: `http://127.0.0.1:8116/indexer`
 
-### Sample REST API call
+### Sample JSON-RPC REST call
 
 Request:
 ```
 echo '{"id": 42, "jsonrpc": "2.0", "method": "sync_state", "params": []}' \
-| curl -s -H 'content-type: application/json' -d @- http://localhost:28114 | jq
+| curl -s -H 'content-type: application/json' -d @- http://localhost:8080/rpc | jq
 ```
 
 Response:
@@ -52,6 +53,27 @@ Response:
   "id": 42
 }
 ```
+
+### Sample JSON-RPC Indexer call
+
+Request:
+```
+echo '{"id": 2, "jsonrpc": "2.0", "method": "get_tip"}' \
+| curl -s -H 'content-type: application/json' -d @- http://localhost:8080/indexer | jq
+```
+
+Response:
+```
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "block_hash": "0x373f5d80c89f7c5d42abf40b779e24b0b472e3977b2061c886682b6d00b92a80",
+    "block_number": "0x53"
+  },
+  "id": 2
+}
+```
+
 
 ## Setting up transaction watcher
 
@@ -86,7 +108,7 @@ $ docker compose exec -- cli ckb-cli
  |_| \_| |______| |_|  \_\     \/      \____/  |_____/
 
 [  ckb-cli version ]: 0.100.0 (3d23e8b 2021-09-15)
-[              url ]: http://node:28114/ (network: Dev)
+[              url ]: http://node:8114/ (network: Dev)
 [              pwd ]: /home/ckb
 [            color ]: true
 [            debug ]: false

@@ -17,7 +17,7 @@ cache_size = 134217728
 options_file = "default.db-options"
 
 [network]
-listen_addresses = ["/ip4/0.0.0.0/tcp/28115"]
+listen_addresses = ["/ip4/0.0.0.0/tcp/8115"]
 public_addresses = []
 bootnodes = []
 max_peers = 125
@@ -30,9 +30,9 @@ discovery_local_address = false
 bootnode_mode = false
 
 [rpc]
-listen_address = "0.0.0.0:28114"
-tcp_listen_address = "0.0.0.0:48114"
-ws_listen_address = "0.0.0.0:38114"
+listen_address = "0.0.0.0:8114"
+tcp_listen_address = "0.0.0.0:8116"
+ws_listen_address = "0.0.0.0:8117"
 max_request_body_size = 10485760
 modules = ["Net", "Pool", "Miner", "Chain", "Stats", "Subscription", "Experiment", "Debug"]
 reject_ill_transactions = true

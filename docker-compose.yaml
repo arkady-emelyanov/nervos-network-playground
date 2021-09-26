@@ -6,40 +6,68 @@ services:
     image: ckb:local
     build:
       context: .
-    command: [ "ckb-node.sh" ]
-    ports:
-      - "28114:28114"
-      - "38114:38114"
-      - "48114:48114"
+    command: [ "run-node.sh" ]
     volumes:
       - ./blockchain/config:/config:ro
       - chain:/data
     environment:
       CKB_CONFIG_PATH: /config
+      API_URL: "http://127.0.0.1:8114/"
 
   miner:
-    hostname: miner
-    image: ckb:local
-    command: [ "ckb-miner.sh" ]
-    volumes:
-      - ./blockchain/config:/config:ro
     depends_on:
       - node
+    hostname: miner
+    image: ckb:local
+    command: [ "run-miner.sh" ]
+    volumes:
+      - ./blockchain/config:/config:ro
     environment:
       CKB_CONFIG_PATH: /config
       CKB_STARTUP_DELAY: 5
-      API_URL: "http://node:28114/"
+      API_URL: "http://node:8114/"
+
+  indexer:
+    depends_on:
+      - node
+    hostname: indexer
+    image: ckb:local
+    command: [ "run-indexer.sh" ]
+    volumes:
+      - index:/data
+    environment:
+      CKB_STORAGE_PATH: /data
+      CKB_STARTUP_DELAY: 5
+      API_URL: "http://node:8114/"
 
   cli:
+    depends_on:
+      - node
     hostname: cli
     image: ckb:local
     command: ["tail", "-f", "/dev/null"]
     volumes:
       - ./blockchain/keys:/home/ckb/keys:ro
+    environment:
+      API_URL: "http://node:8114/"
+
+  ingress:
     depends_on:
       - node
+      - indexer
+    ports:
+      - "8080:80"
+      - "8116:8116"
+    hostname: ingress
+    image: ckb:local
+    command: [ "run-ingress.sh" ]
+    volumes:
+      - ./blockchain/config:/config:ro
     environment:
-      API_URL: "http://node:28114/"
+      CKB_CONFIG_PATH: /config
+      CKB_STARTUP_DELAY: 5
+
 
 volumes:
   chain:
+  index:
